@@ -79,7 +79,7 @@ esbuild
   .build({
     ...commonOptions,
     outdir,
-    entryPoints: isTest ? globby.sync("test/**/*.ts") : ["src/extension.ts"],
+    entryPoints: isTest ? globby.sync("test/**/*.ts") : ["src/picgo.ts"],
     external: isTest ? ["mocha", "istanbul", "electron"] : ["electron"],
     format: "cjs",
     platform: "node",

@@ -2,6 +2,19 @@
 
 A SiYuan Note widget of PicGo
 
+## Dev
+
+```bash
+pnpm install
+pnpm serve
+```
+
+## Build
+
+```bash
+pnpm build
+```
+
 ## Thanks
 
 - [siyuan-note](https://github.com/siyuan-note/siyuan)
