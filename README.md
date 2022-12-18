@@ -1,6 +1,19 @@
 # sy-picgo
 
-A PicGo lib for A SiYuan Note widgets
+A PicGo library for SiYuan Note widgets
+
+## Dev
+
+```bash
+pnpm install
+pnpm serve
+```
+
+## Build
+
+```bash
+pnpm build
+```
 
 ## Thanks
 
