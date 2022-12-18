@@ -1,6 +1,6 @@
 # sy-picgo
 
-A SiYuan Note widget of PicGo
+A PicGo lib for A SiYuan Note widgets
 
 ## Thanks
 
