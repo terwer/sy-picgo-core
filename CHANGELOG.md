@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/terwer/sy-picgo/compare/v1.1.0...v1.1.1) (2022-12-27)
+
+
+### Bug Fixes
+
+* fix globby version ([32dcda9](https://github.com/terwer/sy-picgo/commit/32dcda9165bd1002575ffe3befddf4db4b1591d3))
+
 ## [1.1.0](https://github.com/terwer/sy-picgo/compare/v1.0.0...v1.1.0) (2022-12-27)
 
 
