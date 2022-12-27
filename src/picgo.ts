@@ -1,13 +1,15 @@
-import { PicGo } from "picgo";
+import { PicGo } from "picgo"
 
-async function activate(context) {
+let picgo
+
+async function activate(configPath?: string) {
+  picgo = new PicGo(configPath)
   console.log("picgo core v1.5.0 activated.")
 }
 
 async function upload(input?: any[]) {
   let ret
   console.log("PicGo is uploading...")
-  const picgo = new PicGo()
   try {
     const result = await picgo.upload(input)
     if (result instanceof Array) {
@@ -29,6 +31,7 @@ async function uploadFormClipboard() {
 }
 
 function deactivate() {
+  picgo = null
   console.log("picgo deactivated.")
 }
 
