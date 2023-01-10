@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/terwer/sy-picgo/compare/v1.1.1...v1.1.2) (2023-01-10)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump eslint-config-standard-with-typescript ([b291527](https://github.com/terwer/sy-picgo/commit/b291527dd33c78c5f10543e8cb84e6ba21cf340c))
+
 ## [1.1.1](https://github.com/terwer/sy-picgo/compare/v1.1.0...v1.1.1) (2022-12-27)
 
 
