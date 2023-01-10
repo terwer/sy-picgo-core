@@ -5,7 +5,7 @@ specifiers:
   esbuild-plugin-inline-import: ^1.0.1
   esbuild-plugin-less: ^1.1.11
   eslint-config-prettier: ^8.5.0
-  eslint-config-standard-with-typescript: ^24.0.0
+  eslint-config-standard-with-typescript: ^26.0.0
   eslint-plugin-import: ^2.26.0
   eslint-plugin-n: ^15.6.0
   eslint-plugin-promise: ^6.1.1
@@ -28,7 +28,7 @@ devDependencies:
   esbuild-plugin-inline-import: 1.0.1
   esbuild-plugin-less: 1.1.11_esbuild@0.16.9
   eslint-config-prettier: 8.5.0
-  eslint-config-standard-with-typescript: 24.0.0_mzlnsyyxf7c4r7amgc7dfek2ve
+  eslint-config-standard-with-typescript: 26.0.0_mzlnsyyxf7c4r7amgc7dfek2ve
   eslint-plugin-import: 2.26.0
   eslint-plugin-n: 15.6.0
   eslint-plugin-promise: 6.1.1
@@ -1151,8 +1151,8 @@ packages:
       eslint: '>=7.0.0'
     dev: true
 
-  /eslint-config-standard-with-typescript/24.0.0_mzlnsyyxf7c4r7amgc7dfek2ve:
-    resolution: {integrity: sha512-vEnGXZ5aiR1enl9652iIP4nTpY3GPcNEwuhrsPbKO3Ce3D6T3yCqZdkUPk8nJetfdL/yO0DLsHg2d/l9iECIdg==}
+  /eslint-config-standard-with-typescript/26.0.0_mzlnsyyxf7c4r7amgc7dfek2ve:
+    resolution: {integrity: sha512-TluIWunQo76qp4MHyYIaTT+sN2q2v/jTeE3Dj4rXsSbx27GOUEOujhJaAL3v9dHVQelAK13gZ5Jy9IWnWCyFrg==}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^5.0.0
       eslint: ^8.0.1
