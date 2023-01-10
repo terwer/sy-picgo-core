@@ -4,17 +4,6 @@ let picgo
 
 async function activate(configPath?: string) {
   picgo = new PicGo(configPath)
-
-  picgo.setConfig({
-    // 设置图床插件
-    // uploader: 'smms',
-    // smms: {
-    //   token: 'your-api-token',
-    // },
-    // 设置重命名规则
-    rename: '${random}-${year}-${month}-${day}-${hour}-${minute}-${second}',
-  });
-
   console.log("picgo core v1.5.0 activated.custom configPath", configPath)
 }
 
@@ -28,16 +17,23 @@ async function upload(input?: any[]) {
       console.log("upload success.total=>" + result.length)
     }
   } catch (e) {
-    throw e
+    throw new Error(JSON.stringify(e))
   }
 
-  return ret
+  console.log("ret=>", ret)
+  return JSON.stringify(ret)
 }
 
 async function uploadFormClipboard() {
+  let ret
   console.log("PicGo is uploading form clipboard... ")
-  const ret = await upload()
-  console.log("upload success.")
+  try {
+    ret = await upload()
+    console.log("upload success.")
+    console.log("ret=>", ret)
+  } catch (e) {
+    throw new Error(JSON.stringify(e))
+  }
   return ret
 }
 
@@ -46,7 +42,7 @@ function deactivate() {
   console.log("picgo deactivated.")
 }
 
-function getPicgoObj(){
+function getPicgoObj() {
   console.log("get current picgo object.")
   return picgo
 }
@@ -56,6 +52,6 @@ const picgoExtension = {
   deactivate,
   upload,
   uploadFormClipboard,
-  getPicgoObj
+  getPicgoObj,
 }
 export default picgoExtension
