@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.2](https://github.com/terwer/sy-picgo/compare/v1.1.1...v1.1.2) (2023-01-10)
+
+
+### Bug Fixes
+
+* 修复错误信息返回 ([218d466](https://github.com/terwer/sy-picgo/commit/218d4665d64bb92bc976a7f32298e7368ddb4aec))
+* 修复错误信息返回 ([c24964b](https://github.com/terwer/sy-picgo/commit/c24964ba42c329b1de61d5d2b174cf286df0bac3))
+* 更新依赖 ([d224b3c](https://github.com/terwer/sy-picgo/commit/d224b3cad97fa7e36ae82cf7c2852934ac164bfe))
+* 设置命名规则 ([7e2962f](https://github.com/terwer/sy-picgo/commit/7e2962fd4af25b7ec871226233031636f445e629))
+
+
+### Miscellaneous
+
+* **deps-dev:** bump eslint-config-standard-with-typescript ([b291527](https://github.com/terwer/sy-picgo/commit/b291527dd33c78c5f10543e8cb84e6ba21cf340c))
+
 ## [1.1.1](https://github.com/terwer/sy-picgo/compare/v1.1.0...v1.1.1) (2022-12-27)
 
 
