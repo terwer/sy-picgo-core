@@ -17,7 +17,11 @@ async function upload(input?: any[]) {
       console.log("upload success.total=>" + result.length)
     }
   } catch (e) {
-    throw new Error(JSON.stringify(e))
+    console.error("upload error", e)
+    throw new Error(
+      "upload error, please check you picgo config!Detail info:" +
+        JSON.stringify(e)
+    )
   }
 
   console.log("ret=>", ret)
@@ -32,7 +36,11 @@ async function uploadFormClipboard() {
     console.log("upload success.")
     console.log("ret=>", ret)
   } catch (e) {
-    throw new Error(JSON.stringify(e))
+    console.error("upload error", e)
+    throw new Error(
+      "upload error, please check you picgo config!Detail info:" +
+        JSON.stringify(e)
+    )
   }
   return ret
 }
