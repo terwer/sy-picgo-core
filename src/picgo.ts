@@ -4,7 +4,7 @@ let picgo
 
 async function activate(configPath?: string) {
   picgo = new PicGo(configPath)
-  console.log("picgo core v1.5.0 activated.")
+  console.log("picgo core v1.5.0 activated.custom configPath", configPath)
 }
 
 async function upload(input?: any[]) {
@@ -17,16 +17,31 @@ async function upload(input?: any[]) {
       console.log("upload success.total=>" + result.length)
     }
   } catch (e) {
-    throw e
+    console.error("upload error", e)
+    throw new Error(
+      "upload error, please check you picgo config!Detail info:" +
+        JSON.stringify(e)
+    )
   }
 
-  return ret
+  console.log("ret=>", ret)
+  return JSON.stringify(ret)
 }
 
 async function uploadFormClipboard() {
+  let ret
   console.log("PicGo is uploading form clipboard... ")
-  const ret = await upload()
-  console.log("upload success.")
+  try {
+    ret = await upload()
+    console.log("upload success.")
+    console.log("ret=>", ret)
+  } catch (e) {
+    console.error("upload error", e)
+    throw new Error(
+      "upload error, please check you picgo config!Detail info:" +
+        JSON.stringify(e)
+    )
+  }
   return ret
 }
 
@@ -35,10 +50,16 @@ function deactivate() {
   console.log("picgo deactivated.")
 }
 
+function getPicgoObj() {
+  console.log("get current picgo object.")
+  return picgo
+}
+
 const picgoExtension = {
   activate,
   deactivate,
   upload,
   uploadFormClipboard,
+  getPicgoObj,
 }
 export default picgoExtension
