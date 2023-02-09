@@ -90,19 +90,3 @@ esbuild
   .catch(() => {
     process.exit(1)
   })
-
-// build webview (web app)
-esbuild
-  .build({
-    ...commonOptions,
-    outdir: `${outdir}/webview`,
-    entryPoints: ["src/webview/pages/index.tsx"],
-    target: ["chrome58"],
-    format: "esm",
-    plugins: [lessLoader(), watchPlugin("webview")],
-    // publicPath: 'https://www.example.com/v1',
-  })
-  .then(resultHandler)
-  .catch(() => {
-    process.exit(1)
-  })

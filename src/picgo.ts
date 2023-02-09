@@ -1,4 +1,6 @@
-import { PicGo } from "picgo"
+// noinspection TypeScriptUnresolvedVariable
+
+import { PicGo } from "../../Electron-PicGo-Core/dist/index.esm.js"
 import pkg from "../package.json"
 
 /*
@@ -6,7 +8,6 @@ import pkg from "../package.json"
  */
 class SyPicgo {
   private picgo
-
   constructor(configPath: string) {
     this.picgo = new PicGo(configPath)
     console.log("picgo core inited.configPath", configPath)
@@ -81,7 +82,7 @@ class SyPicgo {
    * 获取PicGO对象
    */
   public getPicgoObj() {
-    console.log("get current picgo object.")
+    // console.log("get current picgo object.")
     return this.picgo
   }
 }
@@ -90,15 +91,28 @@ const picgoExtension = {
   initPicgo: (configPath) => {
     const syPicgo = new SyPicgo(configPath)
     syPicgo.activate()
-    window.SyPicgo = syPicgo
-    console.log("挂载window.SyPicgo", window.SyPicgo)
+    if(typeof window !== "undefined"){
+            // @ts-ignore
+        window.SyPicgo = syPicgo
+        // @ts-ignore
+        console.log("挂载window.SyPicgo", window.SyPicgo)
+    }
+
+    return syPicgo
   },
+
   destroyPicgo: () => {
+      if(typeof window !== "undefined"){
+
+    // @ts-ignore
     if (!window.SyPicgo) {
       return
     }
+    // @ts-ignore
     window.SyPicgo.deactivate()
+    // @ts-ignore
     console.log("销毁window.SyPicgo", window.SyPicgo)
+    }
   },
 }
 
