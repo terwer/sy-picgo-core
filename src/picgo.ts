@@ -2,12 +2,15 @@
 
 import { PicGo } from "../../Electron-PicGo-Core/dist/index.esm.js"
 import pkg from "../package.json"
+import path from "path"
+import * as fs from "fs"
 
 /*
  * 思源笔记内部PicGO对象定义
  */
 class SyPicgo {
   private picgo
+
   constructor(configPath: string) {
     this.picgo = new PicGo(configPath)
     console.log("picgo core inited.configPath", configPath)
@@ -88,31 +91,46 @@ class SyPicgo {
 }
 
 const picgoExtension = {
+  getCrossPlatformAppDataFolder: () => {
+    let configFilePath
+    if (process.platform === "darwin") {
+      configFilePath = path.join(
+        process.env.HOME,
+        "/Library/Application Support"
+      )
+    } else if (process.platform === "win32") {
+      // Roaming包含在APPDATA中了
+      configFilePath = process.env.APPDATA
+    } else if (process.platform === "linux") {
+      configFilePath = process.env.HOME
+    }
+
+    return configFilePath
+  },
+  ensurePath: (folder) => {
+    if (!fs.existsSync(folder)) {
+      fs.mkdirSync(folder)
+    }
+  },
+  upgradeCfg: (oldCfg, newCfgFolder, newCfgName) => {
+    const picgo_cfg_067 = oldCfg
+    const picgo_cfg_folder_070 = newCfgFolder
+
+    picgoExtension.ensurePath(picgo_cfg_folder_070)
+
+    const picgo_cfg_070 = path.join(picgo_cfg_folder_070, newCfgName)
+    if (fs.existsSync(picgo_cfg_067) && !fs.existsSync(picgo_cfg_070)) {
+      console.warn("检测到旧的PicGO配置文件，启动迁移")
+      fs.copyFileSync(picgo_cfg_067, picgo_cfg_070)
+    }
+  },
+  joinPath: (appFolder, filename) => {
+    return path.join(appFolder, filename)
+  },
   initPicgo: (configPath) => {
     const syPicgo = new SyPicgo(configPath)
     syPicgo.activate()
-    if(typeof window !== "undefined"){
-            // @ts-ignore
-        window.SyPicgo = syPicgo
-        // @ts-ignore
-        console.log("挂载window.SyPicgo", window.SyPicgo)
-    }
-
     return syPicgo
-  },
-
-  destroyPicgo: () => {
-      if(typeof window !== "undefined"){
-
-    // @ts-ignore
-    if (!window.SyPicgo) {
-      return
-    }
-    // @ts-ignore
-    window.SyPicgo.deactivate()
-    // @ts-ignore
-    console.log("销毁window.SyPicgo", window.SyPicgo)
-    }
   },
 }
 
