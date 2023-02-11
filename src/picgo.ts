@@ -110,6 +110,16 @@ class SyPicgo {
     // console.log("get current picgo object.")
     return this.picgo
   }
+
+  /**
+   * 合并目录
+   * 
+   * @param appFolder 目录
+   * @param filename 文件
+   */
+  public combinePath(appFolder, filename) {
+    return path.join(appFolder, filename)
+  }
 }
 
 const picgoExtension = {
