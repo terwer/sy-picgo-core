@@ -22,8 +22,17 @@ async function main() {
     // console.log("This is test", syPicgo)
 
     const picgo = syPicgo.getPicgoObj() as PicGo
+
+    // 本地图片上传测试
+    // await picgo.upload(["/Users/terwer/Documents/pictures/test.png"])
+
+    // 远程图片上传测试
+    // await picgo.upload([
+    //   "http://terwer-img1-upyun.test.upcdn.net/img/113801672665374_.pic_hd-SharpenAI-softness.png",
+    // ])
+
     await picgo.upload([
-      "/Users/terwer/Documents/pictures/test.png",
+      "http://127.0.0.1:62930/assets/image-20230211202553-vfpfufa.png",
     ])
   } catch (err) {
     console.log(err)

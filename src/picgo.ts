@@ -1,9 +1,11 @@
 // noinspection TypeScriptUnresolvedVariable
 
 import { PicGo } from "../../Electron-PicGo-Core/dist/index.esm.js"
+import { IPicGo } from "../../Electron-PicGo-Core/dist/index"
 import pkg from "../package.json"
 import path from "path"
 import * as fs from "fs"
+import dayjs from "dayjs"
 
 /*
  * 思源笔记内部PicGO对象定义
@@ -13,6 +15,26 @@ class SyPicgo {
 
   constructor(configPath: string) {
     this.picgo = new PicGo(configPath)
+
+    // 文件自动重命名
+    this.picgo.helper.beforeUploadPlugins.register("renameFn", {
+      handle: async (ctx: IPicGo) => {
+        const autoRename = this.picgo.getConfig("settings.autoRename")
+        if (autoRename) {
+          await Promise.all(
+            ctx.output.map(async (item, index) => {
+              let fileName: string | undefined
+              fileName =
+                dayjs().add(index, "ms").format("YYYYMMDDHHmmSSS") +
+                item.extname
+              item.fileName = fileName
+              console.log("即将自动重命名图片，新名称=>", fileName)
+            })
+          )
+        }
+      },
+    })
+
     console.log("picgo core inited.configPath", configPath)
   }
 
