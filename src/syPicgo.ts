@@ -6,12 +6,15 @@ import pkg from "../package.json"
 import path from "path"
 import * as fs from "fs"
 import dayjs from "dayjs"
+import { sendToMain } from "~/src/utils/dataSender"
+import ipcList from "~/src/events/IpcList"
 
 /*
  * 思源笔记内部PicGO对象定义
  */
 class SyPicgo {
   private picgo
+  public ipcMethods
 
   constructor(configPath: string) {
     this.picgo = new PicGo(configPath)
@@ -34,6 +37,17 @@ class SyPicgo {
         }
       },
     })
+
+    // 事件注册
+    this.ipcMethods = {
+      handleImportLocalPlugin: () => {
+        sendToMain("importLocalPlugin")
+      },
+    }
+
+    // 开启监听
+    ipcList.listen()
+    console.log("SyPicgo开启Electron事件监听")
 
     console.log("picgo core inited.configPath", configPath)
   }
@@ -113,7 +127,7 @@ class SyPicgo {
 
   /**
    * 合并目录
-   * 
+   *
    * @param appFolder 目录
    * @param filename 文件
    */
