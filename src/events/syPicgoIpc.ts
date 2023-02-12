@@ -1,3 +1,5 @@
+import { isSiyuanNewWin } from "~/src/utils/common"
+
 const { ipcMain } = require("@electron/remote")
 
 /**
@@ -9,6 +11,15 @@ const { ipcMain } = require("@electron/remote")
 const handleEvent = (eventId, eventCallback) => {
   ipcMain.on(eventId, (event, msg) => {
     if (!msg || msg?.type !== eventId) {
+      console.warn("消息类型不匹配，忽略")
+      return
+    }
+
+    const currentIsSiyuanNewWin = isSiyuanNewWin()
+    if (msg.isSiyuanNewWin !== currentIsSiyuanNewWin) {
+      console.log("msg.isSiyuanNewWin=>", msg.isSiyuanNewWin)
+      console.log("currentIsSiyuanNewWin=>", currentIsSiyuanNewWin)
+      console.warn("消息来源不一致，忽略")
       return
     }
 
@@ -19,7 +30,7 @@ const handleEvent = (eventId, eventCallback) => {
 
 const handleImportLocalPlugin = () => {
   handleEvent("importLocalPlugin", function (msg) {
-    console.log("这里是实际处理业务的=>", msg)
+    console.log("这里是实际处理业务的=>", JSON.stringify(msg))
   })
 
   //   // const settingWindow = windowManager.get(IWindowList.SETTING_WINDOW)!

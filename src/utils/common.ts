@@ -1,6 +1,14 @@
 import { isReactive, isRef, toRaw, unref } from 'vue'
 
 /**
+ * 思源笔记新窗口
+ */
+export const isSiyuanNewWin = () => {
+  // @ts-ignore
+  return typeof window.terwer !== "undefined"
+}
+
+/**
  * get raw data from reactive or ref
  */
 export const getRawData = (args: any): any => {
