@@ -1,6 +1,5 @@
-import { isSiyuanNewWin } from "~/src/utils/common"
-
-const { ipcMain } = require("@electron/remote")
+import { getPicgoFromWindow, isSiyuanNewWin } from "~/src/utils/common"
+import { dialog, getCurrentWindow, ipcMain } from "@electron/remote"
 
 /**
  * 事件处理封装
@@ -17,53 +16,55 @@ const handleEvent = (eventId, eventCallback) => {
 
     const currentIsSiyuanNewWin = isSiyuanNewWin()
     if (msg.isSiyuanNewWin !== currentIsSiyuanNewWin) {
-      console.log("msg.isSiyuanNewWin=>", msg.isSiyuanNewWin)
-      console.log("currentIsSiyuanNewWin=>", currentIsSiyuanNewWin)
+      // console.log("msg.isSiyuanNewWin=>", msg.isSiyuanNewWin)
+      // console.log("currentIsSiyuanNewWin=>", currentIsSiyuanNewWin)
       console.warn("消息来源不一致，忽略")
       return
     }
 
     console.log("接收到事件" + eventId + "，msg=>", msg)
-    eventCallback(msg)
+    eventCallback(event, msg)
   })
 }
 
 const handleImportLocalPlugin = () => {
-  handleEvent("importLocalPlugin", function (msg) {
-    console.log("这里是实际处理业务的=>", JSON.stringify(msg))
-  })
+  handleEvent("importLocalPlugin", async function (event, msg) {
+    const res = await dialog.showOpenDialog(getCurrentWindow(), {
+      properties: ["openDirectory"],
+    })
+    const filePaths = res.filePaths
+    console.log("filePaths=>", filePaths)
 
-  //   // const settingWindow = windowManager.get(IWindowList.SETTING_WINDOW)!
-  //   // const res = await dialog.showOpenDialog(settingWindow, {
-  //   //   properties: ['openDirectory']
-  //   // })
-  //   // const filePaths = res.filePaths
-  //   // if (filePaths.length > 0) {
-  //   //   const res = await picgo.pluginHandler.install(filePaths)
-  //   //   if (res.success) {
-  //   //     try {
-  //   //       const list = simpleClone(getPluginList())
-  //   //       event.sender.send('pluginList', list)
-  //   //     } catch (e: any) {
-  //   //       event.sender.send('pluginList', [])
-  //   //       showNotification({
-  //   //         title: T('TIPS_GET_PLUGIN_LIST_FAILED'),
-  //   //         body: e.message
-  //   //       })
-  //   //     }
-  //   //     showNotification({
-  //   //       title: T('PLUGIN_IMPORT_SUCCEED'),
-  //   //       body: ''
-  //   //     })
-  //   //   } else {
-  //   //     showNotification({
-  //   //       title: T('PLUGIN_IMPORT_FAILED'),
-  //   //       body: res.body as string
-  //   //     })
-  //   //   }
-  //   // }
-  //
-  //   // event.sender.send('hideLoading')
+    const picgo = getPicgoFromWindow()
+    console.log("picgo=>", picgo)
+    if (filePaths.length > 0) {
+      const res = [] // await picgo.pluginHandler.install(filePaths)
+      // @ts-ignore
+      if (res.success) {
+        try {
+          // const list = simpleClone(getPluginList())
+          // event.sender.send('pluginList', list)
+        } catch (e: any) {
+          // event.sender.send('pluginList', [])
+          // showNotification({
+          //   title: T('TIPS_GET_PLUGIN_LIST_FAILED'),
+          //   body: e.message
+          // })
+        }
+        // showNotification({
+        //   title: T('PLUGIN_IMPORT_SUCCEED'),
+        //   body: ''
+        // })
+      } else {
+        // showNotification({
+        //   title: T('PLUGIN_IMPORT_FAILED'),
+        //   body: res.body as string
+        // })
+      }
+    }
+
+    // event.sender.send('hideLoading')
+  })
 }
 
 /**

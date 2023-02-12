@@ -13,7 +13,7 @@ import ipcList from "~/src/events/IpcList"
  * 思源笔记内部PicGO对象定义
  */
 class SyPicgo {
-  private picgo
+  private picgo: PicGo
   public ipcMethods
 
   constructor(configPath: string) {
@@ -60,6 +60,7 @@ class SyPicgo {
       debug: true,
       PICGO_ENV: "SY-PICGO",
     })
+    // @ts-ignore
     this.picgo.GUI_VERSION = pkg.version
     console.log("picgo core v1.5.0 activated.")
   }
