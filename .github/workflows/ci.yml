@@ -45,4 +45,4 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies and build for production
-        run: "electron_mirror="http://npm.taobao.org/mirrors/electron/\"=" && electron_custom_dir=16.0.6 && pnpm add electron@16.0.6 && pnpm install --no-frozen-lockfile && pnpm run build
+        run: electron_custom_dir=16.0.6 && pnpm add electron@16.0.6 && pnpm install --no-frozen-lockfile && pnpm run build
