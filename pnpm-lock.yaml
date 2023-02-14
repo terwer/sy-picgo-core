@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@electron/remote': ^2.0.9
+  dayjs: ^1.11.7
   electron: 16.0.6
   electron-picgo: ^1.5.0
   esbuild: ^0.16.9
@@ -23,6 +24,7 @@ specifiers:
 
 dependencies:
   '@electron/remote': 2.0.9_electron@16.0.6
+  dayjs: 1.11.7
   electron-picgo: 1.5.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
