@@ -40,8 +40,8 @@ class SyPicgo {
 
     // 事件注册
     this.ipcMethods = {
-      handleImportLocalPlugin: () => {
-        sendToMain("importLocalPlugin")
+      handleEvent: (channel: string, args?: object) => {
+        sendToMain(channel, args)
       },
     }
 

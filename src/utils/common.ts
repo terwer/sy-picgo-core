@@ -1,5 +1,5 @@
 import { isReactive, isRef, toRaw, unref } from "vue"
-import { PicGo } from "../../../Electron-PicGo-Core/dist/index.esm.js"
+import { PicGo } from "electron-picgo"
 
 /**
  * 是否是Electron环境，等价于isInSiyuanOrSiyuanNewWin
@@ -89,5 +89,27 @@ export const getPicgoFromWindow = (): PicGo => {
   const syWin = getSiyuanWindow()
   // @ts-ignore
   const syPicgo = syWin?.SyPicgo
-  return syPicgo?.getPicgoObj()
+  return syPicgo?.getPicgoObj() as PicGo
+}
+
+/**
+ * streamline the full plugin name to a simple one
+ * for example:
+ * 1. picgo-plugin-xxx -> xxx
+ * 2. @xxx/picgo-plugin-yyy -> yyy
+ * @param name pluginFullName
+ */
+export const handleStreamlinePluginName = (name: string) => {
+  if (/^@[^/]+\/picgo-plugin-/.test(name)) {
+    return name.replace(/^@[^/]+\/picgo-plugin-/, "")
+  } else {
+    return name.replace(/picgo-plugin-/, "")
+  }
+}
+
+/**
+ * for just simple clone an object
+ */
+export const simpleClone = (obj: any) => {
+  return JSON.parse(JSON.stringify(obj))
 }
