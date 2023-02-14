@@ -1,7 +1,6 @@
 // noinspection TypeScriptUnresolvedVariable
 
-import { PicGo } from "../../Electron-PicGo-Core/dist/index.esm.js"
-import { IPicGo } from "../../Electron-PicGo-Core/dist/index"
+import { IPicGo, PicGo } from "electron-picgo"
 import pkg from "../package.json"
 import path from "path"
 import * as fs from "fs"
