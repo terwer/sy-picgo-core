@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "pnpm watch",
     "dev": "pnpm watch",
-    "build": "bash scripts/build.sh",
+    "build": "python scripts/build.py",
     "watch": "node esbuild.mjs --watch",
     "test": "esbuild test/test.ts --outfile=test-dist/test.js && node test-dist/test.js"
   },
