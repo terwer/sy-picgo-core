@@ -45,4 +45,4 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies and build for production
-        run: pnpm install --no-frozen-lockfile && pnpm run build
+        run: pnpm add electron@16.0.6 && pnpm install --no-frozen-lockfile && pnpm run build
