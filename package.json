@@ -36,6 +36,6 @@
     "prettier": "^2.8.1"
   },
   "resolutions": {
-    "**/electron": "16.0.6"
+    "electron": "16.0.6"
   }
 }
