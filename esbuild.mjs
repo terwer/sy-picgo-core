@@ -1,8 +1,8 @@
 import globby from "globby"
 import esbuild from "esbuild"
 import fse from "fs-extra"
+import fs from "fs"
 import minimist from "minimist"
-import { lessLoader } from "esbuild-plugin-less"
 import inlineImportPlugin from "esbuild-plugin-inline-import"
 
 const args = minimist(process.argv.slice(2))
@@ -52,7 +52,10 @@ const resultHandler = async (result) => {
 const outdir = "./dist"
 
 // clean old built files
-fse.rmdirSync(outdir, { recursive: true })
+if (fs.existsSync(outdir)) {
+  fse.rmdirSync(outdir, { recursive: true })
+}
+fse.mkdirpSync(outdir)
 
 /** @type {import('esbuild').BuildOptions} */
 const commonOptions = {
@@ -79,28 +82,12 @@ esbuild
   .build({
     ...commonOptions,
     outdir,
-    entryPoints: isTest ? globby.sync("test/**/*.ts") : ["src/picgo.ts"],
+    entryPoints: isTest ? globby.sync("test/**/*.ts") : ["src/syPicgo.ts"],
     external: isTest ? ["mocha", "istanbul", "electron"] : ["electron"],
     format: "cjs",
     platform: "node",
     mainFields: ["module", "main"],
     plugins: [watchPlugin("extension"), inlineImportPlugin()],
-  })
-  .then(resultHandler)
-  .catch(() => {
-    process.exit(1)
-  })
-
-// build webview (web app)
-esbuild
-  .build({
-    ...commonOptions,
-    outdir: `${outdir}/webview`,
-    entryPoints: ["src/webview/pages/index.tsx"],
-    target: ["chrome58"],
-    format: "esm",
-    plugins: [lessLoader(), watchPlugin("webview")],
-    // publicPath: 'https://www.example.com/v1',
   })
   .then(resultHandler)
   .catch(() => {

@@ -1,25 +1,28 @@
 {
   "name": "sy-picgo",
-  "version": "1.1.2",
+  "version": "1.1.5",
   "description": "",
   "scripts": {
     "serve": "pnpm watch",
     "dev": "pnpm watch",
-    "build": "bash scripts/build.sh",
+    "build": "python scripts/build.py",
     "watch": "node esbuild.mjs --watch",
-    "test": "node dist/webview/index.js",
-    "testExtension": "node dist/extension.js"
+    "test": "esbuild test/test.ts --outfile=test-dist/test.js && node test-dist/test.js"
   },
   "keywords": [],
   "author": "",
   "license": "GPL",
   "dependencies": {
-    "picgo": "^1.5.0",
+    "@electron/remote": "^2.0.9",
+    "dayjs": "^1.11.7",
+    "electron-picgo": "^1.5.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "esbuild": "^0.17.8",
+    "electron": "16.0.6",
+    "esbuild": "^0.16.9",
     "esbuild-plugin-inline-import": "^1.0.1",
     "esbuild-plugin-less": "^1.1.11",
     "eslint-config-prettier": "^8.5.0",
