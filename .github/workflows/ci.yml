@@ -45,7 +45,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies and build for production
-        run: pnpm config set registry https://registry.npmmirror.com/ \ &&
-             pnpm config set electron_mirror=https://cdn.npmmirror.com/binaries/electron/ \ &&
-             pnpm config set electron_custom_dir=16.0.6 \ && 
-             pnpm install --no-frozen-lockfile && pnpm run build
+        run: |
+          pnpm config set registry https://registry.npmmirror.com/
+          pnpm config set electron_mirror=https://cdn.npmmirror.com/binaries/electron/
+          pnpm config set electron_custom_dir=16.0.6
+          pnpm install --no-frozen-lockfile 
+          pnpm run build
