@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.3](https://github.com/terwer/sy-picgo/compare/v1.1.2...v1.1.3) (2023-02-14)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump esbuild from 0.16.17 to 0.17.8 ([c812a82](https://github.com/terwer/sy-picgo/commit/c812a820db2c3e411ba26b5d989269843727dc1a))
+* **deps-dev:** bump eslint-config-standard-with-typescript ([56dbe6f](https://github.com/terwer/sy-picgo/commit/56dbe6f3cae4cab37bf81637d8b941729f1a1ec8))
+
 ## [1.1.2](https://github.com/terwer/sy-picgo/compare/v1.1.1...v1.1.2) (2023-01-10)
 
 
