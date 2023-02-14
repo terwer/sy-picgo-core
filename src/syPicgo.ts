@@ -3,9 +3,9 @@
 import { IPicGo, PicGo } from "electron-picgo"
 import pkg from "../package.json"
 import path from "path"
-import * as fs from "fs"
+import fs from "fs"
 import dayjs from "dayjs"
-import { sendToMain } from "~/src/utils/dataSender"
+import { handleFromMain, sendToMain } from "~/src/events/enentHandler"
 import ipcList from "~/src/events/IpcList"
 
 /*
@@ -41,6 +41,9 @@ class SyPicgo {
     this.ipcMethods = {
       handleEvent: (channel: string, args?: object) => {
         sendToMain(channel, args)
+      },
+      registerEvent: (channel: string, eventCallback) => {
+        handleFromMain(channel, eventCallback)
       },
     }
 

@@ -1,39 +1,13 @@
 import {
   getPicgoFromWindow,
   handleStreamlinePluginName,
-  isSiyuanNewWin,
   simpleClone,
 } from "~/src/utils/common"
-import { dialog, getCurrentWindow, ipcMain } from "@electron/remote"
+import { dialog, getCurrentWindow } from "@electron/remote"
 import path from "path"
 import { IPicGoHelperType } from "~/src/utils/enum"
 import { IGuiMenuItem, PicGo as PicGoCore } from "electron-picgo"
-
-/**
- * 事件处理封装
- *
- * @param eventId 事件ID
- * @param eventCallback 事件回调
- */
-const handleEvent = (eventId, eventCallback) => {
-  ipcMain.on(eventId, (event, msg) => {
-    if (!msg || msg?.type !== eventId) {
-      console.warn("消息类型不匹配，忽略")
-      return
-    }
-
-    const currentIsSiyuanNewWin = isSiyuanNewWin()
-    if (msg.isSiyuanNewWin !== currentIsSiyuanNewWin) {
-      // console.log("msg.isSiyuanNewWin=>", msg.isSiyuanNewWin)
-      // console.log("currentIsSiyuanNewWin=>", currentIsSiyuanNewWin)
-      console.warn("消息来源不一致，忽略")
-      return
-    }
-
-    console.log("接收到事件" + eventId + "，msg=>", msg)
-    eventCallback(event, msg)
-  })
-}
+import { handleFromMain, sendToMain } from "~/src/events/enentHandler"
 
 // get uploader or transformer config
 const getConfig = (name: string, type: IPicGoHelperType, ctx: PicGoCore) => {
@@ -118,7 +92,6 @@ const getPluginList = (): IPicGoPlugin[] => {
           ),
         },
       },
-      // @ts-ignore
       enabled: picgo.getConfig(`picgoPlugins.${pluginList[i]}`),
       homepage: pluginPKG.homepage ? pluginPKG.homepage : "",
       guiMenu: menu,
@@ -129,17 +102,14 @@ const getPluginList = (): IPicGoPlugin[] => {
   return list
 }
 
+// handles
 const handleImportLocalPlugin = () => {
-  handleEvent("importLocalPlugin", async function (event, msg) {
+  handleFromMain("importLocalPlugin", async function (event, msg) {
     const res = await dialog.showOpenDialog(getCurrentWindow(), {
       properties: ["openDirectory"],
     })
     const filePaths = res.filePaths
     console.log("filePaths=>", filePaths)
-
-    const list = simpleClone(getPluginList())
-    console.log("pluginList=>", list)
-    return
 
     const picgo = getPicgoFromWindow()
     console.log("picgo=>", picgo)
@@ -149,27 +119,22 @@ const handleImportLocalPlugin = () => {
         try {
           const list = simpleClone(getPluginList())
           console.log("pluginList=>", list)
-          // event.sender.send('pluginList', list)
+          sendToMain("pluginList", { success: true, data: list })
         } catch (e: any) {
-          // event.sender.send('pluginList', [])
-          // showNotification({
-          //   title: T('TIPS_GET_PLUGIN_LIST_FAILED'),
-          //   body: e.message
-          // })
+          sendToMain("pluginList", {
+            success: false,
+            data: [],
+            error: e.toString(),
+          })
         }
-        // showNotification({
-        //   title: T('PLUGIN_IMPORT_SUCCEED'),
-        //   body: ''
-        // })
       } else {
-        // showNotification({
-        //   title: T('PLUGIN_IMPORT_FAILED'),
-        //   body: res.body as string
-        // })
+        sendToMain("pluginList", {
+          success: false,
+          data: [],
+          error: "导入插件失败，请检查picgo.log",
+        })
       }
     }
-
-    // event.sender.send('hideLoading')
   })
 }
 
