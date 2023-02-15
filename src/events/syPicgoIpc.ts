@@ -114,7 +114,21 @@ const handleImportLocalPlugin = () => {
     const picgo = getPicgoFromWindow()
     console.log("picgo=>", picgo)
     if (filePaths.length > 0) {
-      const res = await picgo.pluginHandler.install(filePaths)
+      // node
+      const NODE_PATH =
+        "/Users/terwer/Documents/app/node-v16.14.0-darwin-x64/bin"
+      const ENV_PATH = process.env.PATH + ":" + NODE_PATH
+
+      const res = await picgo.pluginHandler.install(
+        filePaths,
+        {
+          proxy: undefined,
+          registry: undefined,
+        },
+        {
+          PATH: ENV_PATH,
+        }
+      )
       if (res.success) {
         try {
           const list = simpleClone(getPluginList())
@@ -138,11 +152,31 @@ const handleImportLocalPlugin = () => {
   })
 }
 
+const handleGetPluginList = () => {
+  handleFromMain("getPluginList", async function (event, msg) {
+    const picgo = getPicgoFromWindow()
+
+    try {
+      const list = simpleClone(getPluginList())
+      // here can just send JS Object not function
+      // or will cause [Failed to serialize arguments] error
+      sendToMain("pluginList", { success: true, data: list })
+    } catch (e: any) {
+      sendToMain("pluginList", {
+        success: false,
+        data: [],
+        error: e.toString(),
+      })
+      picgo.log.error(e)
+    }
+  })
+}
 /**
  * 处理PicGO相关事件
  */
 export default {
   listen() {
     handleImportLocalPlugin()
+    handleGetPluginList()
   },
 }
