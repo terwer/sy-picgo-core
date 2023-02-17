@@ -5,7 +5,11 @@ import pkg from "../package.json"
 import path from "path"
 import fs from "fs"
 import dayjs from "dayjs"
-import { handleFromMain, sendToMain } from "~/src/events/enentHandler"
+import {
+  handleFromMain,
+  removeEventListeners,
+  sendToMain,
+} from "~/src/events/enentHandler"
 import ipcList from "~/src/events/IpcList"
 
 /*
@@ -44,6 +48,9 @@ class SyPicgo {
       },
       registerEvent: (channel: string, eventCallback) => {
         handleFromMain(channel, eventCallback)
+      },
+      removeEvent: (channel: string) => {
+        removeEventListeners(channel)
       },
     }
 

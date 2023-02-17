@@ -46,3 +46,12 @@ export const handleFromMain = (eventId, eventCallback) => {
     eventCallback(event, msg)
   })
 }
+
+/**
+ * 移除事件监听
+ *
+ * @param channel 频道
+ */
+export const removeEventListeners = (channel) => {
+  ipcRenderer.removeAllListeners(channel)
+}
