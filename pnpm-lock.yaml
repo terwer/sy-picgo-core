@@ -4,7 +4,7 @@ specifiers:
   '@electron/remote': ^2.0.9
   dayjs: ^1.11.7
   electron: 16.0.6
-  electron-picgo: ^1.5.5
+  electron-picgo: ^1.5.7
   esbuild: ^0.16.9
   esbuild-plugin-inline-import: ^1.0.1
   esbuild-plugin-less: ^1.1.11
@@ -25,7 +25,7 @@ specifiers:
 dependencies:
   '@electron/remote': 2.0.9_electron@16.0.6
   dayjs: 1.11.7
-  electron-picgo: 1.5.5
+  electron-picgo: 1.5.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   vue: 3.2.47
@@ -1265,8 +1265,8 @@ packages:
     requiresBuild: true
     dev: false
 
-  /electron-picgo/1.5.5:
-    resolution: {integrity: sha512-NvDq1808CCVtWpcexjLieJDnv88Mydde5nICCAu/zBd8FdyNUGqdNS5+14YTjpJaiXp52YVf+8miohXvZ4ysuQ==}
+  /electron-picgo/1.5.7:
+    resolution: {integrity: sha512-CqBe6jeBm+VDDY7qqchKZEzUxJB5dBRRG1hxitA/9H28l67rRoscRbWAQZIiMscCd1Nf///94kaMViBa8yLC/Q==}
     engines: {node: '>= 12.0.0'}
     hasBin: true
     dependencies:

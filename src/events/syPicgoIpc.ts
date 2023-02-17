@@ -3,7 +3,7 @@ import {
   handleStreamlinePluginName,
   simpleClone,
 } from "~/src/utils/common"
-import { dialog, getCurrentWindow } from "@electron/remote"
+import { dialog, getCurrentWindow, shell } from "@electron/remote"
 import path from "path"
 import { IPicGoHelperType } from "~/src/utils/enum"
 import { IGuiMenuItem, PicGo as PicGoCore } from "electron-picgo"
@@ -102,6 +102,46 @@ const getPluginList = (): IPicGoPlugin[] => {
   return list
 }
 
+/**
+ * 获取Path环境变量
+ */
+const getEnvPath = () => {
+  const picgo = getPicgoFromWindow()
+
+  // node
+  const NODE_PATH =
+    picgo.getConfig<Undefinable<string>>("settings.nodePath") || ""
+  let ENV_PATH = process.env.PATH
+  if (NODE_PATH !== "") {
+    ENV_PATH = process.env.PATH + ":" + NODE_PATH
+  }
+
+  return ENV_PATH
+}
+
+const handleNPMError = (): IDispose => {
+  const picgo = getPicgoFromWindow()
+
+  const handler = (msg: string) => {
+    if (msg === "NPM is not installed") {
+      dialog
+        .showMessageBox({
+          title: "发生错误",
+          message:
+            "请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作",
+          buttons: ["Yes"],
+        })
+        .then((res) => {
+          if (res.response === 0) {
+            shell.openExternal("https://nodejs.org/")
+          }
+        })
+    }
+  }
+  picgo.once("failed", handler)
+  return () => picgo.off("failed", handler)
+}
+
 // handles
 const handleImportLocalPlugin = () => {
   handleFromMain("importLocalPlugin", async function (event, msg) {
@@ -114,19 +154,11 @@ const handleImportLocalPlugin = () => {
     const picgo = getPicgoFromWindow()
     console.log("picgo=>", picgo)
     if (filePaths.length > 0) {
-      // node
-      const NODE_PATH =
-        "/Users/terwer/Documents/app/node-v16.14.0-darwin-x64/bin"
-      const ENV_PATH = process.env.PATH + ":" + NODE_PATH
-
       const res = await picgo.pluginHandler.install(
         filePaths,
+        {},
         {
-          proxy: undefined,
-          registry: undefined,
-        },
-        {
-          PATH: ENV_PATH,
+          PATH: getEnvPath(),
         }
       )
       if (res.success) {
@@ -171,6 +203,78 @@ const handleGetPluginList = () => {
     }
   })
 }
+
+const handlePluginInstall = () => {
+  handleFromMain("installPlugin", async function (event, msg) {
+    const dispose = handleNPMError()
+    const picgo = getPicgoFromWindow()
+
+    const fullName = msg.rawArgs
+    const res = await picgo.pluginHandler.install(
+      [fullName],
+      {},
+      {
+        PATH: getEnvPath(),
+      }
+    )
+    sendToMain("installPluginFinished", {
+      success: res.success,
+      body: fullName,
+      errMsg: res.success ? "" : res.body,
+    })
+
+    dispose()
+  })
+}
+
+const handlePluginUninstall = () => {
+  handleFromMain("uninstallPlugin", async function (event, msg) {
+    const dispose = handleNPMError()
+    const picgo = getPicgoFromWindow()
+
+    const fullName = msg.rawArgs
+    const res = await picgo.pluginHandler.uninstall(
+      [fullName],
+      {},
+      {
+        PATH: getEnvPath(),
+      }
+    )
+
+    sendToMain("uninstallSuccess", {
+      success: res.success,
+      body: fullName,
+      errMsg: res.success ? "" : res.body,
+    })
+
+    dispose()
+  })
+}
+
+const handlePluginUpdate = () => {
+  handleFromMain("updatePlugin", async function (event, msg) {
+    const dispose = handleNPMError()
+    const picgo = getPicgoFromWindow()
+
+    const fullName = msg.rawArgs
+    const res = await picgo.pluginHandler.update(
+      [fullName],
+      {},
+      {
+        PATH: getEnvPath(),
+      }
+    )
+
+    sendToMain("updateSuccess", {
+      success: res.success,
+      body: fullName,
+      errMsg: res.success ? "" : res.body,
+    })
+
+    dispose()
+  })
+}
+
 /**
  * 处理PicGO相关事件
  */
@@ -178,5 +282,8 @@ export default {
   listen() {
     handleImportLocalPlugin()
     handleGetPluginList()
+    handlePluginInstall()
+    handlePluginUninstall()
+    handlePluginUpdate()
   },
 }

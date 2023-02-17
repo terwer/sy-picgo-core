@@ -1,5 +1,5 @@
-import { isReactive, isRef, toRaw, unref } from "vue"
-import { PicGo } from "electron-picgo"
+import { isReactive, isRef, toRaw, unref } from "vue";
+import { PicGo } from "electron-picgo";
 
 /**
  * 是否是Electron环境，等价于isInSiyuanOrSiyuanNewWin
@@ -54,27 +54,30 @@ export const getSiyuanWindow = () => {
  */
 export const getRawData = (args: any): any => {
   if (Array.isArray(args)) {
-    const data = args.map((item: any) => {
-      if (isRef(item)) {
-        return unref(item)
-      }
-      if (isReactive(item)) {
-        return toRaw(item)
+    return args.map((item: any) => {
+      if (item) {
+        if (isRef(item)) {
+          return unref(item)
+        }
+        if (isReactive(item)) {
+          return toRaw(item)
+        }
       }
       return getRawData(item)
     })
-    return data
   }
   if (typeof args === "object") {
     const data = {}
     Object.keys(args).forEach((key) => {
       const item = args[key]
-      if (isRef(item)) {
-        data[key] = unref(item)
-      } else if (isReactive(item)) {
-        data[key] = toRaw(item)
-      } else {
-        data[key] = getRawData(item)
+      if (item) {
+        if (isRef(item)) {
+          data[key] = unref(item)
+        } else if (isReactive(item)) {
+          data[key] = toRaw(item)
+        } else {
+          data[key] = getRawData(item)
+        }
       }
     })
     return data

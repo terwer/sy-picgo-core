@@ -25,3 +25,7 @@ interface IGuiMenuItem {
   label: string;
   handle: (ctx: IPicGo, guiApi: any) => Promise<void>;
 }
+
+type IDispose = () => void
+
+type Undefinable<T> = T | undefined
