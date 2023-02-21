@@ -144,6 +144,29 @@ class SyPicgo {
   public combinePath(appFolder, filename) {
     return path.join(appFolder, filename)
   }
+
+  /**
+   * 删除文件夹
+   *
+   * @param folder 文件夹
+   */
+  public rmFolder(folder: string) {
+    if (!fs.existsSync(folder)) {
+      // fs.rm(folder, { recursive: true, force: true })
+      fs.rmdirSync(folder, { recursive: true })
+    }
+  }
+
+  /**
+   * 删除文件
+   *
+   * @param filename 文件夹
+   */
+  public rmFile(filename: string) {
+    if (!fs.existsSync(filename)) {
+      fs.unlinkSync(filename)
+    }
+  }
 }
 
 const picgoExtension = {
