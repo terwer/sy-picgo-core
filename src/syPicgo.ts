@@ -71,7 +71,7 @@ class SyPicgo {
     })
     // @ts-ignore
     this.picgo.GUI_VERSION = pkg.version
-    console.log("picgo core v1.5.0 activated.")
+    console.log("sy-picgo v" + pkg.version + " activated.")
   }
 
   /**
@@ -151,7 +151,7 @@ class SyPicgo {
    * @param folder 文件夹
    */
   public rmFolder(folder: string) {
-    if (!fs.existsSync(folder)) {
+    if (fs.existsSync(folder)) {
       // fs.rm(folder, { recursive: true, force: true })
       fs.rmdirSync(folder, { recursive: true })
     }
@@ -163,9 +163,32 @@ class SyPicgo {
    * @param filename 文件夹
    */
   public rmFile(filename: string) {
-    if (!fs.existsSync(filename)) {
+    if (fs.existsSync(filename)) {
       fs.unlinkSync(filename)
     }
+  }
+
+  /**
+   * 还原文件
+   *
+   * @param data json数据
+   * @param dstfile 目的地文件
+   */
+  public restoreCfg(data: string, dstfile: string) {
+    fs.writeFileSync(dstfile, data, "utf8")
+  }
+
+  /**
+   * 读取Json文件
+   *
+   * @param filename 文件名
+   */
+  public readFileAsJson(filename: string) {
+    let data = "{}"
+    if (fs.existsSync(filename)) {
+      data = fs.readFileSync(filename, "utf8")
+    }
+    return data
   }
 }
 
