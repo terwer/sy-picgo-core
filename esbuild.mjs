@@ -88,6 +88,7 @@ esbuild
     platform: "node",
     mainFields: ["module", "main"],
     plugins: [watchPlugin("extension"), inlineImportPlugin()],
+    drop: isProduction ? ['console', 'debugger'] : []
   })
   .then(resultHandler)
   .catch(() => {

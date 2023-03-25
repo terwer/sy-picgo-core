@@ -1,39 +1,13 @@
 import {
   getPicgoFromWindow,
   handleStreamlinePluginName,
-  isSiyuanNewWin,
   simpleClone,
 } from "~/src/utils/common"
-import { dialog, getCurrentWindow, ipcMain } from "@electron/remote"
+import { dialog, getCurrentWindow, shell } from "@electron/remote"
 import path from "path"
 import { IPicGoHelperType } from "~/src/utils/enum"
 import { IGuiMenuItem, PicGo as PicGoCore } from "electron-picgo"
-
-/**
- * 事件处理封装
- *
- * @param eventId 事件ID
- * @param eventCallback 事件回调
- */
-const handleEvent = (eventId, eventCallback) => {
-  ipcMain.on(eventId, (event, msg) => {
-    if (!msg || msg?.type !== eventId) {
-      console.warn("消息类型不匹配，忽略")
-      return
-    }
-
-    const currentIsSiyuanNewWin = isSiyuanNewWin()
-    if (msg.isSiyuanNewWin !== currentIsSiyuanNewWin) {
-      // console.log("msg.isSiyuanNewWin=>", msg.isSiyuanNewWin)
-      // console.log("currentIsSiyuanNewWin=>", currentIsSiyuanNewWin)
-      console.warn("消息来源不一致，忽略")
-      return
-    }
-
-    console.log("接收到事件" + eventId + "，msg=>", msg)
-    eventCallback(event, msg)
-  })
-}
+import { handleFromMain, sendToMain } from "~/src/events/enentHandler"
 
 // get uploader or transformer config
 const getConfig = (name: string, type: IPicGoHelperType, ctx: PicGoCore) => {
@@ -118,7 +92,6 @@ const getPluginList = (): IPicGoPlugin[] => {
           ),
         },
       },
-      // @ts-ignore
       enabled: picgo.getConfig(`picgoPlugins.${pluginList[i]}`),
       homepage: pluginPKG.homepage ? pluginPKG.homepage : "",
       guiMenu: menu,
@@ -129,47 +102,176 @@ const getPluginList = (): IPicGoPlugin[] => {
   return list
 }
 
+/**
+ * 获取Path环境变量
+ */
+const getEnvPath = () => {
+  const picgo = getPicgoFromWindow()
+
+  // node
+  const NODE_PATH =
+    picgo.getConfig<Undefinable<string>>("settings.nodePath") || ""
+  let ENV_PATH = process.env.PATH
+  if (NODE_PATH !== "") {
+    ENV_PATH = process.env.PATH + ":" + NODE_PATH
+  }
+
+  return ENV_PATH
+}
+
+const handleNPMError = (): IDispose => {
+  const picgo = getPicgoFromWindow()
+
+  const handler = (msg: string) => {
+    if (msg === "NPM is not installed") {
+      dialog
+        .showMessageBox({
+          title: "发生错误",
+          message:
+            "请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作",
+          buttons: ["Yes"],
+        })
+        .then((res) => {
+          if (res.response === 0) {
+            shell.openExternal("https://nodejs.org/")
+          }
+        })
+    }
+  }
+  picgo.once("failed", handler)
+  return () => picgo.off("failed", handler)
+}
+
+// handles
 const handleImportLocalPlugin = () => {
-  handleEvent("importLocalPlugin", async function (event, msg) {
+  handleFromMain("importLocalPlugin", async function (event, msg) {
     const res = await dialog.showOpenDialog(getCurrentWindow(), {
       properties: ["openDirectory"],
     })
     const filePaths = res.filePaths
     console.log("filePaths=>", filePaths)
 
-    const list = simpleClone(getPluginList())
-    console.log("pluginList=>", list)
-    return
-
     const picgo = getPicgoFromWindow()
     console.log("picgo=>", picgo)
     if (filePaths.length > 0) {
-      const res = await picgo.pluginHandler.install(filePaths)
+      const res = await picgo.pluginHandler.install(
+        filePaths,
+        {},
+        {
+          PATH: getEnvPath(),
+        }
+      )
       if (res.success) {
         try {
           const list = simpleClone(getPluginList())
           console.log("pluginList=>", list)
-          // event.sender.send('pluginList', list)
+          sendToMain("pluginList", { success: true, data: list })
         } catch (e: any) {
-          // event.sender.send('pluginList', [])
-          // showNotification({
-          //   title: T('TIPS_GET_PLUGIN_LIST_FAILED'),
-          //   body: e.message
-          // })
+          sendToMain("pluginList", {
+            success: false,
+            data: [],
+            error: e.toString(),
+          })
         }
-        // showNotification({
-        //   title: T('PLUGIN_IMPORT_SUCCEED'),
-        //   body: ''
-        // })
       } else {
-        // showNotification({
-        //   title: T('PLUGIN_IMPORT_FAILED'),
-        //   body: res.body as string
-        // })
+        sendToMain("pluginList", {
+          success: false,
+          data: [],
+          error: "导入插件失败，请检查picgo.log",
+        })
       }
     }
+  })
+}
 
-    // event.sender.send('hideLoading')
+const handleGetPluginList = () => {
+  handleFromMain("getPluginList", async function (event, msg) {
+    const picgo = getPicgoFromWindow()
+
+    try {
+      const list = simpleClone(getPluginList())
+      // here can just send JS Object not function
+      // or will cause [Failed to serialize arguments] error
+      sendToMain("pluginList", { success: true, data: list })
+    } catch (e: any) {
+      sendToMain("pluginList", {
+        success: false,
+        data: [],
+        error: e.toString(),
+      })
+      picgo.log.error(e)
+    }
+  })
+}
+
+const handlePluginInstall = () => {
+  handleFromMain("installPlugin", async function (event, msg) {
+    const dispose = handleNPMError()
+    const picgo = getPicgoFromWindow()
+
+    const fullName = msg.rawArgs
+    const res = await picgo.pluginHandler.install(
+      [fullName],
+      {},
+      {
+        PATH: getEnvPath(),
+      }
+    )
+    sendToMain("installPluginFinished", {
+      success: res.success,
+      body: fullName,
+      errMsg: res.success ? "" : res.body,
+    })
+
+    dispose()
+  })
+}
+
+const handlePluginUninstall = () => {
+  handleFromMain("uninstallPlugin", async function (event, msg) {
+    const dispose = handleNPMError()
+    const picgo = getPicgoFromWindow()
+
+    const fullName = msg.rawArgs
+    const res = await picgo.pluginHandler.uninstall(
+      [fullName],
+      {},
+      {
+        PATH: getEnvPath(),
+      }
+    )
+
+    sendToMain("uninstallSuccess", {
+      success: res.success,
+      body: fullName,
+      errMsg: res.success ? "" : res.body,
+    })
+
+    dispose()
+  })
+}
+
+const handlePluginUpdate = () => {
+  handleFromMain("updatePlugin", async function (event, msg) {
+    const dispose = handleNPMError()
+    const picgo = getPicgoFromWindow()
+
+    const fullName = msg.rawArgs
+    const res = await picgo.pluginHandler.update(
+      [fullName],
+      {},
+      {
+        PATH: getEnvPath(),
+      }
+    )
+
+    sendToMain("updateSuccess", {
+      success: res.success,
+      body: fullName,
+      errMsg: res.success ? "" : res.body,
+    })
+
+    dispose()
   })
 }
 
@@ -179,5 +281,9 @@ const handleImportLocalPlugin = () => {
 export default {
   listen() {
     handleImportLocalPlugin()
+    handleGetPluginList()
+    handlePluginInstall()
+    handlePluginUninstall()
+    handlePluginUpdate()
   },
 }

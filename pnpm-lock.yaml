@@ -4,7 +4,7 @@ specifiers:
   '@electron/remote': ^2.0.9
   dayjs: ^1.11.7
   electron: 16.0.6
-  electron-picgo: ^1.5.0
+  electron-picgo: ^1.5.7
   esbuild: ^0.16.9
   esbuild-plugin-inline-import: ^1.0.1
   esbuild-plugin-less: ^1.1.11
@@ -25,7 +25,7 @@ specifiers:
 dependencies:
   '@electron/remote': 2.0.9_electron@16.0.6
   dayjs: 1.11.7
-  electron-picgo: 1.5.0
+  electron-picgo: 1.5.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   vue: 3.2.47
@@ -1265,8 +1265,8 @@ packages:
     requiresBuild: true
     dev: false
 
-  /electron-picgo/1.5.0:
-    resolution: {integrity: sha512-+6RpUyQ9VR8DnCybaQXCwDBkqV0A7PtjG8KcL8Mdv6Cf36Cv8YMXUKXXEdL8DrOlkMmTPVlpj7LJarf8ugqfpA==}
+  /electron-picgo/1.5.7:
+    resolution: {integrity: sha512-CqBe6jeBm+VDDY7qqchKZEzUxJB5dBRRG1hxitA/9H28l67rRoscRbWAQZIiMscCd1Nf///94kaMViBa8yLC/Q==}
     engines: {node: '>= 12.0.0'}
     hasBin: true
     dependencies:
@@ -3625,7 +3625,7 @@ packages:
   /tunnel-agent/0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
     dependencies:
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
     dev: false
 
   /tunnel/0.0.6:
