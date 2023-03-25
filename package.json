@@ -15,7 +15,7 @@
   "dependencies": {
     "@electron/remote": "^2.0.9",
     "dayjs": "^1.11.7",
-    "electron-picgo": "^1.5.8",
+    "electron-picgo": "^1.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vue": "^3.2.47"
