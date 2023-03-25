@@ -83,11 +83,12 @@ esbuild
     ...commonOptions,
     outdir,
     entryPoints: isTest ? globby.sync("test/**/*.ts") : ["src/syPicgo.ts"],
-    external: isTest ? ["mocha", "istanbul", "electron"] : ["electron"],
+    external: isTest ? ["mocha", "istanbul", "electron", "fs", "path"] : ["electron", "fs", "path"],
     format: "cjs",
     platform: "node",
     mainFields: ["module", "main"],
     plugins: [watchPlugin("extension"), inlineImportPlugin()],
+    drop: isProduction ? ['console', 'debugger'] : []
   })
   .then(resultHandler)
   .catch(() => {
