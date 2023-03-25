@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/terwer/sy-picgo/compare/v1.2.1...v1.2.2) (2023-03-25)
+
+
+### Miscellaneous
+
+* rollback ([5500cfd](https://github.com/terwer/sy-picgo/commit/5500cfd5195af6bcd896035a0b5e0c997c28a026))
+
 ## [1.2.1](https://github.com/terwer/sy-picgo/compare/v1.2.0...v1.2.1) (2023-03-25)
 
 
