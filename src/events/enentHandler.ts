@@ -30,7 +30,7 @@ export function sendToMain(channel: string, args?: object) {
 export const handleFromMain = (eventId, eventCallback) => {
   ipcMain.on(eventId, (event, msg) => {
     if (!msg || msg?.type !== eventId) {
-      console.warn("消息类型不匹配，忽略")
+      // console.warn("消息类型不匹配，忽略")
       return
     }
 
@@ -38,7 +38,7 @@ export const handleFromMain = (eventId, eventCallback) => {
     if (msg.isSiyuanNewWin !== currentIsSiyuanNewWin) {
       // console.log("msg.isSiyuanNewWin=>", msg.isSiyuanNewWin)
       // console.log("currentIsSiyuanNewWin=>", currentIsSiyuanNewWin)
-      console.warn("消息来源不一致，忽略")
+      // console.warn("消息来源不一致，忽略")
       return
     }
 
