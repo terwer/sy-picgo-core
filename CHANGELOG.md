@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/terwer/sy-picgo/compare/v1.2.3...v1.2.4) (2023-03-25)
+
+
+### Miscellaneous
+
+* remove log ([01fb21b](https://github.com/terwer/sy-picgo/commit/01fb21b01e86f71097ce600ac1075d9d079c238d))
+
 ## [1.2.3](https://github.com/terwer/sy-picgo/compare/v1.2.2...v1.2.3) (2023-03-25)
 
 
