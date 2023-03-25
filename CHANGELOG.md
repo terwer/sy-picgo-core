@@ -1,5 +1,56 @@
 # Changelog
 
+## [1.2.1](https://github.com/terwer/sy-picgo/compare/v1.2.0...v1.2.1) (2023-03-25)
+
+
+### Bug Fixes
+
+* 处理插件列表加载 ([a39f200](https://github.com/terwer/sy-picgo/commit/a39f20030fe6d4c511cf4915a0e6828134d8ad70))
+* 处理插件安装卸载 ([1f9c8ba](https://github.com/terwer/sy-picgo/commit/1f9c8ba573b62655c2466e69673e6ed7a308f748))
+* 新增文件操作 ([a3588d4](https://github.com/terwer/sy-picgo/commit/a3588d479e1c9229808ea549479e50c29eed305e))
+* 新增文件操作 ([a4eb426](https://github.com/terwer/sy-picgo/commit/a4eb42652cf4a69d0377d8229bc76a7e3bd796c0))
+* 移除不必要的日志 ([00e5300](https://github.com/terwer/sy-picgo/commit/00e5300987f58b39ac945da7f15d277a7b7a4c25))
+* 移除不必要的日志 ([6ae2725](https://github.com/terwer/sy-picgo/commit/6ae27250241622f54cea340aa5e202c53a9610b6))
+* 移除事件注册 ([5a8b254](https://github.com/terwer/sy-picgo/commit/5a8b25443d4e0cbdf2e6e3144ab62f63b66cbd1a))
+* 统一事件注册与监听机制 ([1408368](https://github.com/terwer/sy-picgo/commit/1408368b1eb07a85d96a1fd95a7a697efbf35593))
+
+## [1.2.0](https://github.com/terwer/sy-picgo/compare/v1.1.2...v1.2.0) (2023-02-14)
+
+
+### Features
+
+* 新增PicGO的IPC事件监听 ([4a2ba54](https://github.com/terwer/sy-picgo/commit/4a2ba54b0079522ef554539fc8e1aa9b22038fa1))
+
+
+### Bug Fixes
+
+* j获取当前PicGO对象 ([e33b9ac](https://github.com/terwer/sy-picgo/commit/e33b9acff7c30cb3e62377ba2253ecbdbed1ed7d))
+* 优化PicGO调用 ([5f4c6e6](https://github.com/terwer/sy-picgo/commit/5f4c6e6096b4e77fc0591b7402b0245b9a9520e3))
+* 优化PicGO调用aliyun平台 ([acd4b6e](https://github.com/terwer/sy-picgo/commit/acd4b6ed59c6262c52c849a30ca0593290f64945))
+* 优化PicGO调用upyun平台，新增测试 ([eb4610d](https://github.com/terwer/sy-picgo/commit/eb4610dc95bffcf0e1b8887e72fe58da59b123a1))
+* 修复electron依赖问题 ([f7c8dc9](https://github.com/terwer/sy-picgo/commit/f7c8dc900c6aa23e254b1d902c9728f2218c4efb))
+* 修复electron依赖问题 ([cf1914c](https://github.com/terwer/sy-picgo/commit/cf1914cf84f337b5c6d02c1538361a01ef896a0e))
+* 修复electron依赖问题 ([0c69781](https://github.com/terwer/sy-picgo/commit/0c69781a8a04a368bb6e66745fd62e4590e8695e))
+* 修复electron依赖问题 ([c6bb839](https://github.com/terwer/sy-picgo/commit/c6bb83940b787fcdeb94a38016b0f14455123d56))
+* 修复electron依赖问题 ([74c5326](https://github.com/terwer/sy-picgo/commit/74c532698c06e4865f9176f6570e7049cae01433))
+* 修复electron依赖问题 ([1ccba43](https://github.com/terwer/sy-picgo/commit/1ccba4374fc8103ff2441a4915b2a5fb1f8d63da))
+* 修复electron依赖问题 ([2624e12](https://github.com/terwer/sy-picgo/commit/2624e12ebad61969b116b6681392cc128e002fd9))
+* 修复electron依赖问题 ([4499220](https://github.com/terwer/sy-picgo/commit/44992202b9dd7a32283e9b007b29c87bbf9eb815))
+* 修复electron依赖问题 ([c2ed42b](https://github.com/terwer/sy-picgo/commit/c2ed42b7ea40f8778361ca2eca0434951301f8f8))
+* 修复electron依赖问题 ([72d9f9f](https://github.com/terwer/sy-picgo/commit/72d9f9fc3120ccad3040b156e37ce03df3eeca32))
+* 修复构建脚本 ([02b967f](https://github.com/terwer/sy-picgo/commit/02b967f3d9975cc8a0bfa82cdda33851164aa9ec))
+* 修复构建脚本 ([c465f85](https://github.com/terwer/sy-picgo/commit/c465f85bc9d08c56b43bbd139adb113c438ebf51))
+* 支持图片重命名 ([1201f25](https://github.com/terwer/sy-picgo/commit/1201f25fbad869eda17e26b4c997c7290779c8e5))
+* 新增事件监听 ([621d14a](https://github.com/terwer/sy-picgo/commit/621d14af5526459ce8f322a82593fcd3564a0f41))
+* 新增合并目录 ([213131b](https://github.com/terwer/sy-picgo/commit/213131b947df290c6676d05234283254dacc1fb9))
+* 解决消息来源问题 ([2271cd7](https://github.com/terwer/sy-picgo/commit/2271cd7776613cf315398ab51995145f840247ca))
+
+
+### Miscellaneous
+
+* **deps-dev:** bump esbuild from 0.16.17 to 0.17.8 ([c812a82](https://github.com/terwer/sy-picgo/commit/c812a820db2c3e411ba26b5d989269843727dc1a))
+* **deps-dev:** bump eslint-config-standard-with-typescript ([56dbe6f](https://github.com/terwer/sy-picgo/commit/56dbe6f3cae4cab37bf81637d8b941729f1a1ec8))
+
 ## [1.1.2](https://github.com/terwer/sy-picgo/compare/v1.1.1...v1.1.2) (2023-01-10)
 
 
