@@ -83,7 +83,7 @@ esbuild
     ...commonOptions,
     outdir,
     entryPoints: isTest ? globby.sync("test/**/*.ts") : ["src/syPicgo.ts"],
-    external: isTest ? ["mocha", "istanbul", "electron", "fs", "path"] : ["electron", "fs", "path"],
+    external: isTest ? ["mocha", "istanbul", "electron"] : ["electron"],
     format: "cjs",
     platform: "node",
     mainFields: ["module", "main"],
