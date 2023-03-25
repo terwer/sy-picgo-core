@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.1](https://github.com/terwer/sy-picgo/compare/v1.2.0...v1.2.1) (2023-03-25)
+
+
+### Bug Fixes
+
+* 处理插件列表加载 ([a39f200](https://github.com/terwer/sy-picgo/commit/a39f20030fe6d4c511cf4915a0e6828134d8ad70))
+* 处理插件安装卸载 ([1f9c8ba](https://github.com/terwer/sy-picgo/commit/1f9c8ba573b62655c2466e69673e6ed7a308f748))
+* 新增文件操作 ([a3588d4](https://github.com/terwer/sy-picgo/commit/a3588d479e1c9229808ea549479e50c29eed305e))
+* 新增文件操作 ([a4eb426](https://github.com/terwer/sy-picgo/commit/a4eb42652cf4a69d0377d8229bc76a7e3bd796c0))
+* 移除不必要的日志 ([00e5300](https://github.com/terwer/sy-picgo/commit/00e5300987f58b39ac945da7f15d277a7b7a4c25))
+* 移除不必要的日志 ([6ae2725](https://github.com/terwer/sy-picgo/commit/6ae27250241622f54cea340aa5e202c53a9610b6))
+* 移除事件注册 ([5a8b254](https://github.com/terwer/sy-picgo/commit/5a8b25443d4e0cbdf2e6e3144ab62f63b66cbd1a))
+* 统一事件注册与监听机制 ([1408368](https://github.com/terwer/sy-picgo/commit/1408368b1eb07a85d96a1fd95a7a697efbf35593))
+
 ## [1.2.0](https://github.com/terwer/sy-picgo/compare/v1.1.2...v1.2.0) (2023-02-14)
 
 
