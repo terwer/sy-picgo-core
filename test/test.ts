@@ -3,9 +3,9 @@
 import { PicGo } from "picgo"
 
 function initSyPicgo() {
-  const absfolder = "/Users/terwer/Documents/mydocs/sy-picgo/dist"
-  const absTestfolder = "/Users/terwer/Documents/mydocs/sy-picgo/test-dist"
-  const picgoExtension = require(absfolder + "/picgo.js").default
+  const absfolder = "/Users/terwer/Documents/mydocs/sy-picgo-core/dist"
+  const absTestfolder = "/Users/terwer/Documents/mydocs/sy-picgo-core/test-dist"
+  const picgoExtension = require(absfolder + "/syPicgo.js").default
   const picgo_cfg_070 = absTestfolder + "/picgo.cfg.json"
 
   const appFolder = picgoExtension.getCrossPlatformAppDataFolder()
