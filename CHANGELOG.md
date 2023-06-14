@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.5](https://github.com/terwer/sy-picgo-core/compare/v1.2.4...v1.2.5) (2023-06-14)
+
+
+### Bug Fixes
+
+* fix test ([a9feea0](https://github.com/terwer/sy-picgo-core/commit/a9feea09b61c72676c55b51279e01253432c6a27))
+* fix test ([f4a8e8d](https://github.com/terwer/sy-picgo-core/commit/f4a8e8dd9a293b283469962934550205b52fbf91))
+* fix test ([47399d1](https://github.com/terwer/sy-picgo-core/commit/47399d101d6a12de8c1c04b3c989857e30e658a2))
+
 ## [1.2.4](https://github.com/terwer/sy-picgo/compare/v1.2.3...v1.2.4) (2023-03-25)
 
 
