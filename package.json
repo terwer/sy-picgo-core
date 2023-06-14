@@ -9,9 +9,12 @@
     "watch": "node esbuild.mjs --watch",
     "test": "esbuild test/test.ts --outfile=test-dist/test.js && node test-dist/test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "GPL",
+  "keywords": [
+    "picgo",
+    "siyuan"
+  ],
+  "author": "terwer",
+  "license": "MIT",
   "dependencies": {
     "@electron/remote": "^2.0.9",
     "dayjs": "^1.11.7",
