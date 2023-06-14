@@ -1,7 +1,7 @@
 {
   "name": "sy-picgo",
   "version": "1.2.4",
-  "description": "",
+  "description": "a picgo lib for siyuan-note",
   "scripts": {
     "serve": "pnpm watch",
     "dev": "pnpm watch",
