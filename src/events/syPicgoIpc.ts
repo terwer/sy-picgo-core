@@ -136,8 +136,14 @@ const handleNPMError = (): IDispose => {
       //       shell.openExternal("https://nodejs.org/")
       //     }
       //   })
-      throw new Error("未检测到NPM环境，请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作")
+      console.error("未检测到NPM环境，请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作")
     }
+
+    sendToMain("handleError", {
+      success: false,
+      body: "",
+      errMsg: `未检测到NPM环境，请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作，详细错误：${msg}`,
+    })
   }
   picgo.once("failed", handler)
   return () => picgo.off("failed", handler)
