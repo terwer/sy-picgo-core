@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.6](https://github.com/terwer/sy-picgo-core/compare/v1.2.5...v1.2.6) (2023-06-15)
+
+
+### Miscellaneous
+
+* release 1.2.5 ([482d32c](https://github.com/terwer/sy-picgo-core/commit/482d32cf930f186fa42e574717a375c125ff6dd5))
+* release 1.2.5 ([5b51ad5](https://github.com/terwer/sy-picgo-core/commit/5b51ad58901c5973c080aec40ab35d18cac53406))
+
 ## [1.2.5](https://github.com/terwer/sy-picgo-core/compare/v1.2.4...v1.2.5) (2023-06-14)
 
 
