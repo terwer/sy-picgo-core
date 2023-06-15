@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "@electron/remote": "^2.0.9",
-    "dayjs": "^1.11.7",
+    "dayjs": "^1.11.8",
     "electron-picgo": "^1.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
