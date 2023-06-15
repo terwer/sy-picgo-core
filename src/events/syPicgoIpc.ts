@@ -124,18 +124,19 @@ const handleNPMError = (): IDispose => {
 
   const handler = (msg: string) => {
     if (msg === "NPM is not installed") {
-      dialog
-        .showMessageBox({
-          title: "发生错误",
-          message:
-            "请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作",
-          buttons: ["Yes"],
-        })
-        .then((res) => {
-          if (res.response === 0) {
-            shell.openExternal("https://nodejs.org/")
-          }
-        })
+      // dialog
+      //   .showMessageBox({
+      //     title: "发生错误",
+      //     message:
+      //       "请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作",
+      //     buttons: ["Yes"],
+      //   })
+      //   .then((res) => {
+      //     if (res.response === 0) {
+      //       shell.openExternal("https://nodejs.org/")
+      //     }
+      //   })
+      throw new Error("未检测到NPM环境，请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作")
     }
   }
   picgo.once("failed", handler)
