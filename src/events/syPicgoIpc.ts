@@ -119,36 +119,6 @@ const getEnvPath = () => {
   return ENV_PATH
 }
 
-const handleNPMError = (): IDispose => {
-  const picgo = getPicgoFromWindow()
-
-  const handler = (msg: string) => {
-    if (msg === "NPM is not installed") {
-      // dialog
-      //   .showMessageBox({
-      //     title: "发生错误",
-      //     message:
-      //       "请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作",
-      //     buttons: ["Yes"],
-      //   })
-      //   .then((res) => {
-      //     if (res.response === 0) {
-      //       shell.openExternal("https://nodejs.org/")
-      //     }
-      //   })
-      console.error("未检测到NPM环境，请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作")
-    }
-
-    sendToMain("handleError", {
-      success: false,
-      body: "",
-      errMsg: `未检测到NPM环境，请安装Node.js并在挂件配置中设置Node环境变量，然后再继续操作，详细错误：${msg}`,
-    })
-  }
-  picgo.once("failed", handler)
-  return () => picgo.off("failed", handler)
-}
-
 // handles
 const handleImportLocalPlugin = () => {
   handleFromMain("importLocalPlugin", async function (event, msg) {
@@ -213,7 +183,6 @@ const handleGetPluginList = () => {
 
 const handlePluginInstall = () => {
   handleFromMain("installPlugin", async function (event, msg) {
-    const dispose = handleNPMError()
     const picgo = getPicgoFromWindow()
 
     const fullName = msg.rawArgs
@@ -229,14 +198,11 @@ const handlePluginInstall = () => {
       body: fullName,
       errMsg: res.success ? "" : res.body,
     })
-
-    dispose()
   })
 }
 
 const handlePluginUninstall = () => {
   handleFromMain("uninstallPlugin", async function (event, msg) {
-    const dispose = handleNPMError()
     const picgo = getPicgoFromWindow()
 
     const fullName = msg.rawArgs
@@ -253,14 +219,11 @@ const handlePluginUninstall = () => {
       body: fullName,
       errMsg: res.success ? "" : res.body,
     })
-
-    dispose()
   })
 }
 
 const handlePluginUpdate = () => {
   handleFromMain("updatePlugin", async function (event, msg) {
-    const dispose = handleNPMError()
     const picgo = getPicgoFromWindow()
 
     const fullName = msg.rawArgs
@@ -277,8 +240,6 @@ const handlePluginUpdate = () => {
       body: fullName,
       errMsg: res.success ? "" : res.body,
     })
-
-    dispose()
   })
 }
 
