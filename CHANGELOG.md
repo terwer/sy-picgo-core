@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.8](https://github.com/terwer/sy-picgo-core/compare/v1.2.7...v1.2.8) (2023-06-15)
+
+
+### Bug Fixes
+
+* 通过事件传递错误 ([e591c61](https://github.com/terwer/sy-picgo-core/commit/e591c6163fb9986960d40d8a77f83b3f2aeef538))
+
 ## [1.2.7](https://github.com/terwer/sy-picgo-core/compare/v1.2.6...v1.2.7) (2023-06-15)
 
 
