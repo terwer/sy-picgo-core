@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^1.0.1
     version: 1.0.1
   esbuild-plugin-less:
-    specifier: ^1.1.11
-    version: 1.1.11(esbuild@0.16.17)
+    specifier: ^1.2.1
+    version: 1.2.1(esbuild@0.16.17)
   eslint-config-prettier:
     specifier: ^8.5.0
     version: 8.5.0(eslint@8.42.0)
@@ -667,7 +667,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       '@typescript-eslint/types': 5.59.11
-      eslint-visitor-keys: 3.3.0
+      eslint-visitor-keys: 3.4.1
     dev: true
 
   /@vue/compiler-core@3.2.47:
@@ -1632,10 +1632,10 @@ packages:
     resolution: {integrity: sha512-QcBbsf7nJnD1GW2SOxgE0lLJ2GgqhGZCoPujxFaWatooNXpYwDCYuOadThKPLWcB9Sx6a7i3GU7RNBEB1dcYOQ==}
     dev: true
 
-  /esbuild-plugin-less@1.1.11(esbuild@0.16.17):
-    resolution: {integrity: sha512-W2ps3mPK8eIrP+q5htgtPh9n5cAg/tQgcIdCEX94+QdDIegwUIh1Vd8A4v0W2WVxmESsOInEj3REIoMNmGENmQ==}
+  /esbuild-plugin-less@1.2.1(esbuild@0.16.17):
+    resolution: {integrity: sha512-Td7eeZV6AlQXtA/WxPoOV/MIQICGm9EPfxHLDdNVbqVWZhzIOKTwy/mZM1oXXmoArAZ1WDqcIc6EUhysPmAVDA==}
     peerDependencies:
-      esbuild: ^0.14.x || ^0.15.0 || ^0.16.0
+      esbuild: ^0.14.x || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0
     dependencies:
       '@types/less': 3.0.3
       esbuild: 0.16.17
